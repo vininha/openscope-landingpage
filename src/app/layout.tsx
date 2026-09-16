@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { ThemeProvider, I18nProvider } from '@/providers'
 import { Navbar } from '@/components/ui/navbar'
 import { Footer } from '@/components/ui/footer'
+import { Toaster } from '@/components/ui/sonner'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const geistSans = Geist({
@@ -37,6 +38,7 @@ export default async function RootLayout({
               <main className="flex-1">{children}</main>
               <Footer />
             </div>
+            <Toaster />
           </I18nProvider>
         </ThemeProvider>
       </body>

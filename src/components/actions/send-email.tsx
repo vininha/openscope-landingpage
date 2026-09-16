@@ -1,9 +1,16 @@
 'use server'
 
-import { MailtrapClient } from 'mailtrap'
+import nodemailer from 'nodemailer'
 
-const token = process.env.MAILTRAP_TOKEN || ''
-const client = new MailtrapClient({ token })
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD,
+  },
+})
 
 export async function sendContactEmail(formData: FormData) {
   try {
@@ -16,15 +23,12 @@ export async function sendContactEmail(formData: FormData) {
       message: formData.get('message'),
     }
 
-    const destinationEmail = 'contact@openscope-systems.com'
-    const sender = {
-      name: 'Rakudash Contact',
-      email: 'mailtrap@demomailtrap.com',
-    }
+    const destinationEmail = process.env.EMAIL_DESTINATION
 
-    const response = await client.send({
-      from: sender,
-      to: [{ email: destinationEmail }],
+    const response = await transporter.sendMail({
+      from: `"Rakudash Contact" <${process.env.GMAIL_USER}>`,
+      to: destinationEmail,
+      replyTo: data.email as string,
       subject: `[Rakudash LP] Novo Contato: ${data.subject}`,
       html: `
         <h2>Novo Contato via Landing Page - Rakudash</h2>
@@ -39,8 +43,8 @@ export async function sendContactEmail(formData: FormData) {
       `,
     })
 
-    if (!response.success) {
-      console.error('Mailtrap error:', response)
+    if (!response.accepted || response.accepted.length === 0) {
+      console.error('Gmail SMTP error:', response)
       return { success: false, error: 'Failed to send e-mail' }
     }
 

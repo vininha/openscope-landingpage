@@ -4,6 +4,7 @@ import { Navbar, Footer, NeuralNetworkBackground, PrivacyModal, TermsModal, Page
 import { sendContactEmail } from '@/components/actions/send-email'
 import { useTranslation, Trans } from 'react-i18next'
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 export default function ContactPage() {
   const { t } = useTranslation()
@@ -48,7 +49,7 @@ export default function ContactPage() {
     if (result.success) {
       setSubmitted(true)
     } else {
-      alert(t('contact_page.error_message'))
+      toast.error(t('contact_page.error_message'))
     }
   }
 

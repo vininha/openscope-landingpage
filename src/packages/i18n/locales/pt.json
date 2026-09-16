@@ -165,6 +165,7 @@
       "person": "Responsável",
       "email": "E-mail corporativo",
       "phone": "Telefone",
+      "phone_title": "Use apenas números, espaços, parênteses, hífens e o símbolo +",
       "subject": "Assunto",
       "message": "Mensagem"
     },
@@ -172,7 +173,8 @@
     "sending": "Enviando...",
     "submit": "Enviar Solicitação",
     "success_title": "Mensagem Enviada",
-    "success_message": "Agradecemos o contato. Retornaremos o mais breve possível."
+    "success_message": "Agradecemos o contato. Retornaremos o mais breve possível.",
+    "error_message": "Ocorreu um erro ao enviar sua mensagem. Tente novamente mais tarde."
   },
   "privacy": {
     "title": "Política de Privacidade",
